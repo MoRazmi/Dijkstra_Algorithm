@@ -7,7 +7,12 @@ class prority_queue
 {
 
 public:
-	void pq_changePriotiy(int priority);
+	prority_queue() {}
+
+	void pq_changePriotiy(int priority)
+	{
+		auto it = find(pq_heap.begin(), pq_heap.end(), val)
+	}
 	int  pq_minPriority();
 	bool pq_contains(int value);
 	void pq_insert(int value);

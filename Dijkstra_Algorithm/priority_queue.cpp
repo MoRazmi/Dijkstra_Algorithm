@@ -26,6 +26,9 @@ void Priority_Queue::pq_insert(node node_start, distance distance_input)
 
 
 
+/**
+* Pop the minimum priority which means the closest node from Priority Queue list
+*/
 pair<node, Priority_Queue::distance>  Priority_Queue::pq_popMinPriority()
 {
     pair<node, distance> node_poped = openlist.top();
@@ -33,6 +36,9 @@ pair<node, Priority_Queue::distance>  Priority_Queue::pq_popMinPriority()
     return node_poped;
 };
 
+/**
+* Change the priority of a node in the open list
+*/
 void Priority_Queue::pq_changePriotiy(node node_input, distance distance_input)
 {
     // create temporary priority queue to store all nodes except the one with the specified node id
@@ -63,29 +69,18 @@ void Priority_Queue::pq_changePriotiy(node node_input, distance distance_input)
     }
 }
 
-bool Priority_Queue::pq_contains(node node_input)
-{
-    priority_queue<pair<graph::node, distance>, vector<pair<graph::node, distance>>, greater<pair<graph::node, distance>>> temp = openlist;
-
-        // search for the node in the priority queue
-        while (!temp.empty())
-        {
-            if (temp.top().first == node_input)
-            {
-                return true;
-            }
-            temp.pop();
-        }
-
-    return false;
-}
-
+/**
+* Just take a copy of the minimum priority of priority queue
+*/
 
 pair<node, Priority_Queue::distance> Priority_Queue::pq_topMinPriority()
 {
     return openlist.top();
 }
 
+/**
+* Get the size of priority queueu
+*/
 size_t Priority_Queue::pq_size()
 {
     return openlist.size();

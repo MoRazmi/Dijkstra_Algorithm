@@ -9,8 +9,16 @@ using distance = Priority_Queue::distance;
 
 
 
+/**
+* The Dijkstra Algorithm Constructor
+* Which get the graph as input and starting node
+*/
 dijkstra_algorrithm::dijkstra_algorrithm(graph graph_in, node node_start) : G(graph_in), preceedors(graph_in.get_num_nodes()), start(node_start) {}
 
+
+/**
+* The Dijstra Algorithm destrcutor
+*/
 dijkstra_algorrithm::~dijkstra_algorrithm()
 {
     closed_list.clear();
@@ -18,6 +26,9 @@ dijkstra_algorrithm::~dijkstra_algorrithm()
 }
 
 
+/**
+* Check whether a node is in the closed list 
+*/
 bool dijkstra_algorrithm::is_node_in_closed_list(node new_node)
 {
     for (vector<node>::const_iterator it = closed_list.begin(); it != closed_list.end(); ++it)
@@ -30,6 +41,9 @@ bool dijkstra_algorrithm::is_node_in_closed_list(node new_node)
     return false;
 }
 
+/**
+* Find the shortest path from source to destination node
+*/
 list<node> dijkstra_algorrithm::shortest_path( node end)
 {
     list<node> path;

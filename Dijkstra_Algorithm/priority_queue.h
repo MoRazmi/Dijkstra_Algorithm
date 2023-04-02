@@ -18,7 +18,6 @@ public:
 	void pq_insert(node node_input, distance distance_input);
 	pair<node, distance> pq_popMinPriority(void);
 	void pq_changePriotiy(node node_input, distance distance_input);
-	bool pq_contains(node node_input);
 	pair<node, distance>  pq_topMinPriority();
 	size_t pq_size();
 

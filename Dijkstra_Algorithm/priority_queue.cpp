@@ -14,17 +14,21 @@ Priority_Queue::Priority_Queue() {}
 Priority_Queue::Priority_Queue(node)
 {}
 
+/**
+* Priority Queue desstructor
+*/
+Priority_Queue::~Priority_Queue() = default;
 
 void Priority_Queue::pq_insert(node node_start, distance distance_input)
 {
-    openlist.push(make_pair(distance_input , node_start));
+    openlist.push(make_pair(node_start, distance_input));
 }
 
 
 
-node  Priority_Queue::pq_minPriority()
+pair<node, Priority_Queue::distance>  Priority_Queue::pq_popMinPriority()
 {
-    node node_poped = openlist.top().second;
+    pair<node, distance> node_poped = openlist.top();
     openlist.pop();
     return node_poped;
 };
@@ -32,15 +36,15 @@ node  Priority_Queue::pq_minPriority()
 void Priority_Queue::pq_changePriotiy(node node_input, distance distance_input)
 {
     // create temporary priority queue to store all nodes except the one with the specified node id
-    priority_queue<pair<Priority_Queue::distance, graph::node>, vector<pair<Priority_Queue::distance, graph::node>>, greater<pair<Priority_Queue::distance, graph::node>>> temp;
+    priority_queue<pair<graph::node, Priority_Queue::distance>, vector<pair<graph::node, Priority_Queue::distance>>, greater<pair<graph::node, Priority_Queue::distance>>> temp;
 
     while (!openlist.empty())
     {
-        if (openlist.top().second == node_input)
+        if (openlist.top().first == node_input)
         {
             // if the node is found, update its distance and reinsert it into the priority queue
             openlist.pop();
-            openlist.push(make_pair(distance_input, node_input));
+            openlist.push(make_pair(node_input, distance_input));
             break;
         }
         else
@@ -61,12 +65,12 @@ void Priority_Queue::pq_changePriotiy(node node_input, distance distance_input)
 
 bool Priority_Queue::pq_contains(node node_input)
 {
-    priority_queue<pair<distance, graph::node>, vector<pair<distance, graph::node>>, greater<pair<distance, graph::node>>> temp = openlist;
+    priority_queue<pair<graph::node, distance>, vector<pair<graph::node, distance>>, greater<pair<graph::node, distance>>> temp = openlist;
 
         // search for the node in the priority queue
         while (!temp.empty())
         {
-            if (temp.top().second == node_input)
+            if (temp.top().first == node_input)
             {
                 return true;
             }
@@ -77,12 +81,12 @@ bool Priority_Queue::pq_contains(node node_input)
 }
 
 
-node Priority_Queue::pq_top()
+pair<node, Priority_Queue::distance> Priority_Queue::pq_topMinPriority()
 {
-    return openlist.top().second;
+    return openlist.top();
 }
 
-node Priority_Queue::pq_size()
+size_t Priority_Queue::pq_size()
 {
     return openlist.size();
 }

@@ -2,20 +2,26 @@
 
 #include "graph.h"
 #include "priority_queue.h"
-#include "list.h"
+#include "Path_Element.h"
+#include <list>
 
 using node = graph::node;
 using distance = Priority_Queue::distance;
 
-class path
+class dijkstra_algorrithm
 {
 public:
-	path();
+	dijkstra_algorrithm(graph graph_in, node node_start);
 
-	void path_add_node(node new_node);
-	list<node> path_get(node start, node end);
-	Priority_Queue::distance path_get_size();
+	list<node> shortest_path( node end);
+
+	bool is_node_in_closed_list(node new_node);
+
+	~dijkstra_algorrithm();
 
 private:
-	list<node> path_list;
+	graph G;
+	vector <node> closed_list;
+	vector<Path_Element<node>> preceedors;
+	node start;
 };

@@ -42,6 +42,15 @@ bool dijkstra_algorrithm::is_node_in_closed_list(node new_node)
 }
 
 /**
+* Add new node to the closed list
+*/
+
+void dijkstra_algorrithm::add_to_closed_list(node new_node)
+{
+    closed_list.push_back(new_node);
+}
+
+/**
 * Find the shortest path from source to destination node
 */
 list<node> dijkstra_algorrithm::shortest_path( node end)
@@ -58,40 +67,46 @@ list<node> dijkstra_algorrithm::shortest_path( node end)
 
         if (u == end)
         {
-            Path_Element<node>* current = &preceedors[end];
+            // Start from the end node and follow the predecessors backwards to the start node
+            node current = end;
+            cout <<"The distance is " << pq.pq_topMinPriority().second << endl;
 
-            // Construct the path by following predecessors backwards
-            while (current != nullptr)
+            while (current != start)
             {
-                cout << current<< endl;
-                path.push_front(current->node);
-                current = &preceedors[current->get_predecessor()->node];
-            }
+                cout << current << endl;
+                path.push_front(current);
+                current = preceedors[current].get_predecessor()->node;
 
-            break; // Exit the while loop
+            }
+            path.push_front(start);
+
+            // Exit the while loop since the path has been found
+            break;
         }
 
 
         vector<pair<node, double>> neighbors = G.get_neighbors(u);
         for (int i = 0; i < neighbors.size(); i++)
         {
-            double new_dist = neighbors[i].second + pq.pq_topMinPriority().second;
             node v = neighbors[i].first;
 
             if (!is_node_in_closed_list(v))
             {
+                double new_dist = neighbors[i].second + pq.pq_topMinPriority().second;
                 pq.pq_insert(v, new_dist);
+                if (preceedors[v].node == 0 || new_dist < pq.pq_topMinPriority().second)
+                {
+                    pq.pq_changePriotiy(v, new_dist);
+                    preceedors[v] = Path_Element<node>(v, &preceedors[u]);
+
+                }
+
             }
 
-
-            if (preceedors[v].node == -1 || new_dist < pq.pq_topMinPriority().second)
-            {
-                pq.pq_changePriotiy(v, new_dist);
-                preceedors[v] = Path_Element<node>(v, &preceedors[u]);
-            }
         }
 
-        closed_list.push_back(u);
+        add_to_closed_list(u);
+
         (void)pq.pq_popMinPriority();
 
     }

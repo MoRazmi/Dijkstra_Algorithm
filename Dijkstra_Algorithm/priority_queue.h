@@ -24,6 +24,15 @@ public:
 	~Priority_Queue();
 
 private:
-	priority_queue < pair<node, distance>, vector<pair<node, distance >>, greater<pair<node, distance>>> openlist;// pair of node and its priority
+	struct compare_distance
+	{
+		bool operator() (const pair<node, distance>& lhs, const pair<node, distance>& rhs) const
+		{
+			return lhs.second > rhs.second;
+		}
+	};
+
+	priority_queue < pair<node, distance>, vector<pair<node, distance >>, compare_distance> openlist;// pair of node and its priority
+
 };
 

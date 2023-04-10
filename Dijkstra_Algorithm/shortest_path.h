@@ -15,6 +15,8 @@ public:
 
 	list<node> shortest_path( node end);
 
+	void add_to_closed_list(node new_node);
+
 	bool is_node_in_closed_list(node new_node);
 
 	~dijkstra_algorrithm();
